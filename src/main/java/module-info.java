@@ -3,6 +3,6 @@ module com.example.newpaketstation {
     requires javafx.fxml;
 
 
-    opens com.example.newpaketstation to javafx.fxml;
-    exports com.example.newpaketstation;
+    opens dev.tebbe.PaketstationFX to javafx.fxml;
+    exports dev.tebbe.PaketstationFX;
 }

@@ -1,4 +1,4 @@
-package com.example.newpaketstation;
+package dev.tebbe.PaketstationFX;
 
 import java.util.ArrayList;
 

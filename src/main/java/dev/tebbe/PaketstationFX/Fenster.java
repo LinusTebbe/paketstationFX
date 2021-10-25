@@ -1,4 +1,4 @@
-package com.example.newpaketstation;
+package dev.tebbe.PaketstationFX;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -62,24 +62,29 @@ public class Fenster extends Application {
         GridPane myGridPaneButton = new GridPane();
 
         Button myButtonEinfuegen = new Button("Einfügen");
-        myButtonEinfuegen.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            this.myLabelMessage.setText(this.presenter.handleInsert(this.myTextFieldEmpfaenger.getText()));
-        });
+        myButtonEinfuegen.addEventHandler(
+                MouseEvent.MOUSE_CLICKED,
+                mouseEvent -> this.myLabelMessage.setText(
+                        this.presenter.handleInsert(this.myTextFieldEmpfaenger.getText())
+                )
+        );
 
         Button myButtonEntnehmen = new Button("Entnehmen");
-        myButtonEntnehmen.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            this.myLabelMessage.setText(this.presenter.handleRemove(this.myTextFieldEmpfaenger.getText()));
-        });
+        myButtonEntnehmen.addEventHandler(
+                MouseEvent.MOUSE_CLICKED,
+                mouseEvent -> this.myLabelMessage.setText(
+                        this.presenter.handleRemove(this.myTextFieldEmpfaenger.getText())
+                )
+        );
 
         Button myButtonListe = new Button("Liste");
-        myButtonListe.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            this.myTextAreaListe.setText(this.presenter.handleList());
-        });
+        myButtonListe.addEventHandler(
+                MouseEvent.MOUSE_CLICKED,
+                mouseEvent -> this.myTextAreaListe.setText(this.presenter.handleList())
+        );
 
         Button myButtonEnde = new Button("Abbrechen");
-        myButtonEnde.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            Platform.exit();
-        });
+        myButtonEnde.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> Platform.exit());
 
         myGridPaneButton.add(myButtonEinfuegen,1,1);
         myGridPaneButton.add(myButtonEntnehmen,1,2);
