@@ -1,4 +1,4 @@
-module com.example.newpaketstation {
+module dev.tebbe.PaketstationFX {
     requires javafx.controls;
     requires javafx.fxml;
 
