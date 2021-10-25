@@ -1,7 +1,5 @@
 package dev.tebbe.PaketstationFX;
 
-import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 
 public class Presenter {
