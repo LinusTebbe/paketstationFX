@@ -1,20 +1,23 @@
 package dev.tebbe.PaketstationFX;
 
 public class Paket {
+    private final String recipient;
 
-    private final String empfaenger;
-    private final int sendungsnummer;
+    private final int trackingNo;
 
-    public Paket(String empfaenger, int sendungsnummer) {
-        this.empfaenger = empfaenger;
-        this.sendungsnummer = sendungsnummer;
+    public Paket(
+            String recipient,
+            int trackingNo
+    ) {
+        this.recipient = recipient;
+        this.trackingNo = trackingNo;
     }
 
-    public String getEmpfaenger() {
-        return this.empfaenger;
+    public String getRecipient() {
+        return recipient;
     }
 
-    public int getSendungsnummer() {
-        return this.sendungsnummer;
+    public int getTrackingNo() {
+        return trackingNo;
     }
 }

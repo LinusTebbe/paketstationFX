@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -64,7 +65,7 @@ public class Fenster extends Application {
         Button myButtonEinfuegen = new Button("Einfügen");
         myButtonEinfuegen.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
-                mouseEvent -> this.myLabelMessage.setText(
+                mouseEvent -> this.applyStyledTextToLabel(
                         this.presenter.handleInsert(this.myTextFieldEmpfaenger.getText())
                 )
         );
@@ -72,15 +73,17 @@ public class Fenster extends Application {
         Button myButtonEntnehmen = new Button("Entnehmen");
         myButtonEntnehmen.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
-                mouseEvent -> this.myLabelMessage.setText(
+                mouseEvent -> this.applyStyledTextToLabel(
                         this.presenter.handleRemove(this.myTextFieldEmpfaenger.getText())
                 )
         );
 
+        this.myLabelMessage.setTextFill(Color.RED);
+
         Button myButtonListe = new Button("Liste");
         myButtonListe.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
-                mouseEvent -> this.myTextAreaListe.setText(this.presenter.handleList())
+                mouseEvent -> this.myTextAreaListe.setText(this.presenter.handleList().getText())
         );
 
         Button myButtonEnde = new Button("Abbrechen");
@@ -92,5 +95,10 @@ public class Fenster extends Application {
         myGridPaneButton.add(myButtonEnde,1,4);
 
         return myGridPaneButton;
+    }
+
+    private void applyStyledTextToLabel(StyledText styledText) {
+        this.myLabelMessage.setText(styledText.getText());
+        this.myLabelMessage.setTextFill(styledText.getColor());
     }
 }
