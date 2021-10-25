@@ -29,7 +29,7 @@ public class Fenster extends Application {
         primaryStage.setTitle("Paketstation");
 
         StackPane root = new StackPane();
-        Scene myScene = new Scene(root, 300, 250);
+        Scene myScene = new Scene(root, 600, 400);
         BorderPane myWindow = new BorderPane();
         this.myTextAreaListe = new TextArea();
         this.myLabelMessage = new Label();
