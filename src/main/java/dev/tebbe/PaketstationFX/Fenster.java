@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -58,11 +57,11 @@ public class Fenster extends Application {
         return myBorderPaneOben;
     }
 
-    public GridPane addGridPaneButton() {
-
-        GridPane myGridPaneButton = new GridPane();
+    public VBox addGridPaneButton() {
+        VBox vBox = new VBox();
 
         Button myButtonEinfuegen = new Button("Einfügen");
+        myButtonEinfuegen.setMaxWidth(Double.MAX_VALUE);
         myButtonEinfuegen.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
                 mouseEvent -> this.applyStyledTextToLabel(
@@ -71,6 +70,7 @@ public class Fenster extends Application {
         );
 
         Button myButtonEntnehmen = new Button("Entnehmen");
+        myButtonEntnehmen.setMaxWidth(Double.MAX_VALUE);
         myButtonEntnehmen.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
                 mouseEvent -> this.applyStyledTextToLabel(
@@ -79,20 +79,19 @@ public class Fenster extends Application {
         );
 
         Button myButtonListe = new Button("Liste");
+        myButtonListe.setMaxWidth(Double.MAX_VALUE);
         myButtonListe.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
                 mouseEvent -> this.myTextAreaListe.setText(this.presenter.handleList().getText())
         );
 
         Button myButtonEnde = new Button("Abbrechen");
+        myButtonEnde.setMaxWidth(Double.MAX_VALUE);
         myButtonEnde.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> Platform.exit());
 
-        myGridPaneButton.add(myButtonEinfuegen,1,1);
-        myGridPaneButton.add(myButtonEntnehmen,1,2);
-        myGridPaneButton.add(myButtonListe,1,3);
-        myGridPaneButton.add(myButtonEnde,1,4);
+        vBox.getChildren().addAll(myButtonEinfuegen, myButtonEntnehmen, myButtonListe, myButtonEnde);
 
-        return myGridPaneButton;
+        return vBox;
     }
 
     private void applyStyledTextToLabel(StyledText styledText) {
