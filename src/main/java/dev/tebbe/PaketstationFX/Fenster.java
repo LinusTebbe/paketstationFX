@@ -78,8 +78,6 @@ public class Fenster extends Application {
                 )
         );
 
-        this.myLabelMessage.setTextFill(Color.RED);
-
         Button myButtonListe = new Button("Liste");
         myButtonListe.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
