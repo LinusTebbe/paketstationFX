@@ -2,6 +2,8 @@ package dev.tebbe.PaketstationFX;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -12,11 +14,11 @@ public class Fenster extends Application {
 
     private Presenter presenter;
 
-    private TextField myTextFieldEmpfaenger;
+    private TextField recipientInput;
 
-    private TextArea myTextAreaListe;
+    private TextArea textAreaOutput;
 
-    private Label myLabelMessage;
+    private Label labelStatusMessage;
 
     public static void main(String[] args) {
         launch(args);
@@ -30,72 +32,78 @@ public class Fenster extends Application {
 
         StackPane root = new StackPane();
         Scene myScene = new Scene(root, 600, 400);
-        BorderPane myWindow = new BorderPane();
-        this.myTextAreaListe = new TextArea();
-        this.myLabelMessage = new Label();
+        BorderPane borderPane = new BorderPane();
 
-        myWindow.setTop(addMyBorderPane());
-        myWindow.setCenter(this.myTextAreaListe);
-        myWindow.setBottom(this.myLabelMessage);
+        this.textAreaOutput = new TextArea();
+        this.labelStatusMessage = new Label();
 
-        root.getChildren().add(myWindow);
+        borderPane.setTop(getTopHBox());
+        borderPane.setCenter(this.textAreaOutput);
+        borderPane.setBottom(this.labelStatusMessage);
+
+        root.getChildren().add(borderPane);
 
         primaryStage.setScene(myScene);
         primaryStage.show();
     }
 
-    public BorderPane addMyBorderPane() {
+    public HBox getTopHBox() {
+        HBox hBox = new HBox();
 
-        BorderPane myBorderPaneOben = new BorderPane();
-        Label myLabelEmpfaenger = new Label("Empfänger");
-        this.myTextFieldEmpfaenger = new TextField();
+        Label recipientLabel = new Label("Empfänger");
 
-        myBorderPaneOben.setCenter(this.myTextFieldEmpfaenger);
-        myBorderPaneOben.setLeft(myLabelEmpfaenger);
-        myBorderPaneOben.setRight(addGridPaneButton());
+        this.recipientInput = new TextField();
+        HBox.setHgrow(this.recipientInput, Priority.ALWAYS);
 
-        return myBorderPaneOben;
+        this.recipientInput.setMaxWidth(Double.MAX_VALUE);
+
+        hBox.getChildren().addAll(recipientLabel, this.recipientInput, getButtonVBox());
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setMaxWidth(Double.MAX_VALUE);
+
+        return hBox;
     }
 
-    public VBox addGridPaneButton() {
+    public VBox getButtonVBox() {
         VBox vBox = new VBox();
 
-        Button myButtonEinfuegen = new Button("Einfügen");
-        myButtonEinfuegen.setMaxWidth(Double.MAX_VALUE);
-        myButtonEinfuegen.addEventHandler(
+        Button buttonInsert = new Button("Einfügen");
+        buttonInsert.setMaxWidth(Double.MAX_VALUE);
+        buttonInsert.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
-                mouseEvent -> this.applyStyledTextToLabel(
-                        this.presenter.handleInsert(this.myTextFieldEmpfaenger.getText())
+                mouseEvent -> this.applyStyledTextToLabelStatusMessage(
+                        this.presenter.handleInsert(this.recipientInput.getText())
                 )
         );
 
-        Button myButtonEntnehmen = new Button("Entnehmen");
-        myButtonEntnehmen.setMaxWidth(Double.MAX_VALUE);
-        myButtonEntnehmen.addEventHandler(
+        Button buttonRemove = new Button("Entnehmen");
+        buttonRemove.setMaxWidth(Double.MAX_VALUE);
+        buttonRemove.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
-                mouseEvent -> this.applyStyledTextToLabel(
-                        this.presenter.handleRemove(this.myTextFieldEmpfaenger.getText())
+                mouseEvent -> this.applyStyledTextToLabelStatusMessage(
+                        this.presenter.handleRemove(this.recipientInput.getText())
                 )
         );
 
-        Button myButtonListe = new Button("Liste");
-        myButtonListe.setMaxWidth(Double.MAX_VALUE);
-        myButtonListe.addEventHandler(
+        Button buttonList = new Button("Liste");
+        buttonList.setMaxWidth(Double.MAX_VALUE);
+        buttonList.addEventHandler(
                 MouseEvent.MOUSE_CLICKED,
-                mouseEvent -> this.myTextAreaListe.setText(this.presenter.handleList().getText())
+                mouseEvent -> this.textAreaOutput.setText(this.presenter.handleList().getText())
         );
 
-        Button myButtonEnde = new Button("Abbrechen");
-        myButtonEnde.setMaxWidth(Double.MAX_VALUE);
-        myButtonEnde.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> Platform.exit());
+        Button buttonExit = new Button("Abbrechen");
+        buttonExit.setMaxWidth(Double.MAX_VALUE);
+        buttonExit.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> Platform.exit());
 
-        vBox.getChildren().addAll(myButtonEinfuegen, myButtonEntnehmen, myButtonListe, myButtonEnde);
+        vBox.setPadding(new Insets(10));
+        vBox.getChildren().addAll(buttonInsert, buttonRemove, buttonList, buttonExit);
 
         return vBox;
     }
 
-    private void applyStyledTextToLabel(StyledText styledText) {
-        this.myLabelMessage.setText(styledText.getText());
-        this.myLabelMessage.setTextFill(styledText.getColor());
+    private void applyStyledTextToLabelStatusMessage(StyledText styledText) {
+        this.labelStatusMessage.setText(styledText.getText());
+        this.labelStatusMessage.setTextFill(styledText.getColor());
     }
 }
