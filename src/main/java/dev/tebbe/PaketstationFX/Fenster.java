@@ -35,6 +35,7 @@ public class Fenster extends Application {
         BorderPane borderPane = new BorderPane();
 
         this.textAreaOutput = new TextArea();
+        this.textAreaOutput.setEditable(false);
         this.labelStatusMessage = new Label();
 
         borderPane.setTop(getTopHBox());
